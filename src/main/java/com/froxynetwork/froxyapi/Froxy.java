@@ -2,7 +2,6 @@ package com.froxynetwork.froxyapi;
 
 import java.io.File;
 
-import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
@@ -35,29 +34,65 @@ import com.froxynetwork.froxyapi.language.Languages;
  * @author 0ddlyoko
  */
 /**
- * Interface for all methods (like {@link Server} for Spigot)
+ * Represents the API core, for version and API singleton handling
  */
-public interface API {
+public final class Froxy {
+
+	private static API api;
+
+	private Froxy() {
+	}
+
+	/**
+	 * Gets the current {@link API} singleton
+	 *
+	 * @return API instance being ran
+	 */
+	public static API getAPI() {
+		return api;
+	}
+
+	/**
+	 * Attempts to set the {@link API} singleton.
+	 * <p>
+	 * This cannot be done if the API is already set.
+	 *
+	 * @param api API instance
+	 */
+	public static void setAPI(API api) {
+		if (Froxy.api != null)
+			throw new UnsupportedOperationException("Cannot redefine singleton API");
+		Froxy.api = api;
+		api.getLogger().info("");
+	}
 
 	/**
 	 * @return The JavaPlugin implementation of the Core plugin
 	 */
-	public JavaPlugin getCorePlugin();
+	public static JavaPlugin getCorePlugin() {
+		return api.getCorePlugin();
+	}
 
 	/**
 	 * @return The JavaPlugin implementation of the Game plugin
 	 */
-	public JavaPlugin getGamePlugin();
+	public static JavaPlugin getGamePlugin() {
+		return api.getGamePlugin();
+	}
 
 	/**
 	 * @return The version of the actual Core
 	 */
-	public String getVersion();
+	public static String getVersion() {
+		return api.getVersion();
+	}
 
 	/**
 	 * @return The logger
 	 */
-	public Logger getLogger();
+	public static Logger getLogger() {
+		return api.getLogger();
+	}
 
 	// -----------------------------------------
 	// |                                       |
@@ -65,16 +100,12 @@ public interface API {
 	// |                                       |
 	// -----------------------------------------
 
-	/**
-	 * @return The LanguageManager
-	 */
-	public LanguageManager getLanguageManager();
+	public static LanguageManager getLanguageManager() {
+		return api.getLanguageManager();
+	}
 
-	/**
-	 * @return The default language
-	 */
-	public default Languages getDefaultLanguage() {
-		return getLanguageManager().getDefaultLanguage();
+	public static Languages getDefaultLanguage() {
+		return api.getDefaultLanguage();
 	}
 
 	/**
@@ -85,8 +116,8 @@ public interface API {
 	 * 
 	 * @param path The directory
 	 */
-	public default void register(File path) {
-		getLanguageManager().register(path);
+	public static void register(File path) {
+		api.register(path);
 	}
 
 	/**
@@ -97,8 +128,8 @@ public interface API {
 	 * @param params The parameters
 	 * @return The message translated by default language, or the id if message id doesn't exist
 	 */
-	public default String $(String id, String... params) {
-		return getLanguageManager().$(id, params);
+	public static String $(String id, String... params) {
+		return api.$(id, params);
 	}
 
 	/**
@@ -109,8 +140,8 @@ public interface API {
 	 * @param params The parameters
 	 * @return The message translated by specific language, or the message translated by default language, or the id if message id doesn't exist
 	 */
-	public default String $(String id, Languages lang, String... params) {
-		return getLanguageManager().$(id, lang, params);
+	public static String $(String id, Languages lang, String... params) {
+		return api.$(id, lang, params);
 	}
 
 	/**
@@ -121,8 +152,8 @@ public interface API {
 	 * @param params The parameters
 	 * @return The message translated by specific language, or the id if message id doesn't exist
 	 */
-	public default String $_(String id, Languages lang, String... params) {
-		return getLanguageManager().$_(id, lang, params);
+	public static String $_(String id, Languages lang, String... params) {
+		return api.$_(id, lang, params);
 	}
 
 	// -----------------------------------------
@@ -130,5 +161,4 @@ public interface API {
 	// |                 Other                 |
 	// |                                       |
 	// -----------------------------------------
-
 }
