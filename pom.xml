@@ -62,20 +62,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Network -->
-		<dependency>
-			<groupId>com.github.froxynetwork</groupId>
-			<artifactId>froxynetwork</artifactId>
-			<version>0.1.2</version>
-		</dependency>
-
-		<!-- Game -->
-		<dependency>
-			<groupId>com.github.froxynetwork</groupId>
-			<artifactId>froxygame</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
 		<!--Spigot API -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>

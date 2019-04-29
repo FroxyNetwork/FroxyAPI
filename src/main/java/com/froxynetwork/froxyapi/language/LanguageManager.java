@@ -1,13 +1,6 @@
-package com.froxynetwork.froxyapi;
+package com.froxynetwork.froxyapi.language;
 
 import java.io.File;
-
-import org.bukkit.Server;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
-
-import com.froxynetwork.froxyapi.language.LanguageManager;
-import com.froxynetwork.froxyapi.language.Languages;
 
 /**
  * MIT License
@@ -35,47 +28,15 @@ import com.froxynetwork.froxyapi.language.Languages;
  * @author 0ddlyoko
  */
 /**
- * Interface for all methods (like {@link Server} for Spigot)
+ * Interface for the Language Manager.<br />
+ * With this interface, you can manage language
  */
-public interface API {
+public interface LanguageManager {
 
 	/**
-	 * @return The JavaPlugin implementation of the Core plugin
+	 * @return The default language of the server
 	 */
-	public JavaPlugin getCorePlugin();
-
-	/**
-	 * @return The JavaPlugin implementation of the Game plugin
-	 */
-	public JavaPlugin getGamePlugin();
-
-	/**
-	 * @return The version of the actual Core
-	 */
-	public String getVersion();
-
-	/**
-	 * @return The logger
-	 */
-	public Logger getLogger();
-
-	// -----------------------------------------
-	// |                                       |
-	// |           Language Manager            |
-	// |                                       |
-	// -----------------------------------------
-
-	/**
-	 * @return The LanguageManager
-	 */
-	public LanguageManager getLanguageManager();
-
-	/**
-	 * @return The default language
-	 */
-	public default Languages getDefaultLanguage() {
-		return getLanguageManager().getDefaultLanguage();
-	}
+	public Languages getDefaultLanguage();
 
 	/**
 	 * Register a path as a language directory.<br />
@@ -85,9 +46,7 @@ public interface API {
 	 * 
 	 * @param path The directory
 	 */
-	public default void register(File path) {
-		getLanguageManager().register(path);
-	}
+	public void register(File path);
 
 	/**
 	 * Get the default translate of specific message id.<br />
@@ -98,7 +57,7 @@ public interface API {
 	 * @return The message translated by default language, or the id if message id doesn't exist
 	 */
 	public default String $(String id, String... params) {
-		return getLanguageManager().$(id, params);
+		return $(id, getDefaultLanguage(), params);
 	}
 
 	/**
@@ -109,9 +68,7 @@ public interface API {
 	 * @param params The parameters
 	 * @return The message translated by specific language, or the message translated by default language, or the id if message id doesn't exist
 	 */
-	public default String $(String id, Languages lang, String... params) {
-		return getLanguageManager().$(id, lang, params);
-	}
+	public String $(String id, Languages lang, String... params);
 
 	/**
 	 * Get the translate of specific id with specific language
@@ -121,14 +78,5 @@ public interface API {
 	 * @param params The parameters
 	 * @return The message translated by specific language, or the id if message id doesn't exist
 	 */
-	public default String $_(String id, Languages lang, String... params) {
-		return getLanguageManager().$_(id, lang, params);
-	}
-
-	// -----------------------------------------
-	// |                                       |
-	// |                 Other                 |
-	// |                                       |
-	// -----------------------------------------
-
+	public String $_(String id, Languages lang, String... params);
 }
