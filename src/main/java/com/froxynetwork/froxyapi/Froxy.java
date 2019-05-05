@@ -1,10 +1,13 @@
 package com.froxynetwork.froxyapi;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
+import com.froxynetwork.froxyapi.command.Command;
+import com.froxynetwork.froxyapi.command.CommandManager;
 import com.froxynetwork.froxyapi.language.LanguageManager;
 import com.froxynetwork.froxyapi.language.Languages;
 
@@ -100,10 +103,16 @@ public final class Froxy {
 	// |                                       |
 	// -----------------------------------------
 
+	/**
+	 * @return The LanguageManager
+	 */
 	public static LanguageManager getLanguageManager() {
 		return api.getLanguageManager();
 	}
 
+	/**
+	 * @return The default language
+	 */
 	public static Languages getDefaultLanguage() {
 		return api.getDefaultLanguage();
 	}
@@ -154,6 +163,47 @@ public final class Froxy {
 	 */
 	public static String $_(String id, Languages lang, String... params) {
 		return api.$_(id, lang, params);
+	}
+	
+
+	// -----------------------------------------
+	// |                                       |
+	// |            Command Manager            |
+	// |                                       |
+	// -----------------------------------------
+	
+	/**
+	 * @return The CommandManager
+	 */
+	public static CommandManager getCommandManager() {
+		return api.getCommandManager();
+	}
+
+	/**
+	 * Register a command
+	 * 
+	 * @param cmd
+	 *            The command
+	 */
+	public static void registerCommand(Command cmd) {
+		api.registerCommand(cmd);
+	}
+
+	/**
+	 * Unregister a command
+	 * 
+	 * @param cmd
+	 *            The command
+	 */
+	public static void unregisterCommand(Command cmd) {
+		api.unregisterCommand(cmd);
+	}
+
+	/**
+	 * @return All commands
+	 */
+	public static List<Command> getCommands() {
+		return api.getCommands();
 	}
 
 	// -----------------------------------------
