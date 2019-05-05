@@ -1,11 +1,14 @@
 package com.froxynetwork.froxyapi;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
+import com.froxynetwork.froxyapi.command.Command;
+import com.froxynetwork.froxyapi.command.CommandManager;
 import com.froxynetwork.froxyapi.language.LanguageManager;
 import com.froxynetwork.froxyapi.language.Languages;
 
@@ -123,6 +126,45 @@ public interface API {
 	 */
 	public default String $_(String id, Languages lang, String... params) {
 		return getLanguageManager().$_(id, lang, params);
+	}
+	
+
+	// -----------------------------------------
+	// |                                       |
+	// |            Command Manager            |
+	// |                                       |
+	// -----------------------------------------
+	
+	/**
+	 * @return The CommandManager
+	 */
+	public CommandManager getCommandManager();
+
+	/**
+	 * Register a command
+	 * 
+	 * @param cmd
+	 *            The command
+	 */
+	public default void registerCommand(Command cmd) {
+		getCommandManager().registerCommand(cmd);
+	}
+
+	/**
+	 * Unregister a command
+	 * 
+	 * @param cmd
+	 *            The command
+	 */
+	public default void unregisterCommand(Command cmd) {
+		getCommandManager().unregisterCommand(cmd);
+	}
+
+	/**
+	 * @return All commands
+	 */
+	public default List<Command> getCommands() {
+		return getCommandManager().getCommands();
 	}
 
 	// -----------------------------------------
