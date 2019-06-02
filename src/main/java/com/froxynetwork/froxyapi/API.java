@@ -4,11 +4,15 @@ import java.io.File;
 import java.util.List;
 
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
 import com.froxynetwork.froxyapi.command.Command;
 import com.froxynetwork.froxyapi.command.CommandManager;
+import com.froxynetwork.froxyapi.inventory.Inventory;
+import com.froxynetwork.froxyapi.inventory.InventoryManager;
+import com.froxynetwork.froxyapi.inventory.InventoryProvider;
 import com.froxynetwork.froxyapi.language.LanguageManager;
 import com.froxynetwork.froxyapi.language.Languages;
 
@@ -169,8 +173,36 @@ public interface API {
 
 	// -----------------------------------------
 	// |                                       |
-	// |                 Other                 |
+	// |          Inventory Manager            |
 	// |                                       |
 	// -----------------------------------------
 
+	/**
+	 * @return The InventoryManager
+	 */
+	public InventoryManager getInventoryManager();
+
+	/**
+	 * Create an Inventory and open it
+	 * 
+	 * @param provider
+	 *            The provider
+	 * @param player
+	 *            The player
+	 * @return An inventory
+	 */
+	public default Inventory openInventory(InventoryProvider provider, Player player) {
+		return getInventoryManager().openInventory(provider, player);
+	}
+
+	/**
+	 * Close player's inventory.<br />
+	 * Same as <code>p.closeInventory();</code>
+	 * 
+	 * @param p
+	 *            The player
+	 */
+	public default void closeInventory(Player p) {
+		getInventoryManager().closeInventory(p);
+	}
 }
