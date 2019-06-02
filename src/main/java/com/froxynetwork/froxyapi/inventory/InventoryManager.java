@@ -45,6 +45,21 @@ public interface InventoryManager {
 	public Inventory openInventory(InventoryProvider provider, Player player);
 
 	/**
+	 * @param p
+	 *            Player to check
+	 * 
+	 * @return true if specific Player has an opened inventory
+	 */
+	public boolean hasInventoryOpened(Player p);
+
+	/**
+	 * @param p
+	 *            Specific player
+	 * @return The inventory of specific Player. Null if not opened
+	 */
+	public Inventory getInventory(Player p);
+
+	/**
 	 * Close player's inventory.<br />
 	 * Same as <code>p.closeInventory();</code>
 	 * 

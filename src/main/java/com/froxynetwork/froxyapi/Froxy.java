@@ -237,6 +237,25 @@ public final class Froxy {
 	}
 
 	/**
+	 * @param p
+	 *            Player to check
+	 * 
+	 * @return true if specific Player has an opened inventory
+	 */
+	public static boolean hasInventoryOpened(Player p) {
+		return api.hasInventoryOpened(p);
+	}
+
+	/**
+	 * @param p
+	 *            Specific player
+	 * @return The inventory of specific Player. Null if not opened
+	 */
+	public static Inventory getInventory(Player p) {
+		return api.getInventory(p);
+	}
+
+	/**
 	 * Close player's inventory.<br />
 	 * Same as <code>p.closeInventory();</code>
 	 * 
