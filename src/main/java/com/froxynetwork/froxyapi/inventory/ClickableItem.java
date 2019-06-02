@@ -40,7 +40,9 @@ public class ClickableItem {
 	private ItemStack item;
 	private Consumer<InventoryClickEvent> event;
 
-	private ClickableItem(ItemStack is, Consumer<InventoryClickEvent> event) {
+	private ClickableItem(ItemStack item, Consumer<InventoryClickEvent> event) {
+		this.item = item;
+		this.event = event;
 	}
 
 	public void run(InventoryClickEvent e) {
