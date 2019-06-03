@@ -3,11 +3,15 @@ package com.froxynetwork.froxyapi;
 import java.io.File;
 import java.util.List;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 
 import com.froxynetwork.froxyapi.command.Command;
 import com.froxynetwork.froxyapi.command.CommandManager;
+import com.froxynetwork.froxyapi.inventory.Inventory;
+import com.froxynetwork.froxyapi.inventory.InventoryManager;
+import com.froxynetwork.froxyapi.inventory.InventoryProvider;
 import com.froxynetwork.froxyapi.language.LanguageManager;
 import com.froxynetwork.froxyapi.language.Languages;
 
@@ -208,7 +212,57 @@ public final class Froxy {
 
 	// -----------------------------------------
 	// |                                       |
-	// |                 Other                 |
+	// |          Inventory Manager            |
 	// |                                       |
 	// -----------------------------------------
+
+	/**
+	 * @return The InventoryManager
+	 */
+	public static InventoryManager getInventoryManager() {
+		return api.getInventoryManager();
+	}
+
+	/**
+	 * Create an Inventory and open it
+	 * 
+	 * @param provider
+	 *            The provider
+	 * @param player
+	 *            The player
+	 * @return An inventory
+	 */
+	public static Inventory openInventory(InventoryProvider provider, Player player) {
+		return api.openInventory(provider, player);
+	}
+
+	/**
+	 * @param p
+	 *            Player to check
+	 * 
+	 * @return true if specific Player has an opened inventory
+	 */
+	public static boolean hasInventoryOpened(Player p) {
+		return api.hasInventoryOpened(p);
+	}
+
+	/**
+	 * @param p
+	 *            Specific player
+	 * @return The inventory of specific Player. Null if not opened
+	 */
+	public static Inventory getInventory(Player p) {
+		return api.getInventory(p);
+	}
+
+	/**
+	 * Close player's inventory.<br />
+	 * Same as <code>p.closeInventory();</code>
+	 * 
+	 * @param p
+	 *            The player
+	 */
+	public static void closeInventory(Player p) {
+		api.closeInventory(p);
+	}
 }
