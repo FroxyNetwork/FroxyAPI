@@ -58,7 +58,7 @@ public interface Inventory {
 			throw new IllegalArgumentException("col must be between 1 and 9");
 		if (row < 1 || row > 6)
 			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows");
-		set((row - 1) * 9 + (col - 1), item);
+		set(locToPos(row, col), item);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public interface Inventory {
 			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col));
 		if (height < 1 || height > 7 - col)
 			throw new IllegalArgumentException("The height must be between 1 and " + (7 - col));
-		rectangle((row - 1) * 9 + (col - 1), width, height, item);
+		rectangle(locToPos(row, col), width, height, item);
 	}
 
 	/**
@@ -114,9 +114,10 @@ public interface Inventory {
 	 *            The position of the item. Must be between 0 and the maximum number
 	 *            of case (9 * number of rows - 1)
 	 * @param width
-	 *            The width. Must be between 1 and 9
+	 *            The width. Must be between 1 and 9 and stay inside the inventory
 	 * @param height
-	 *            The height. Must be between 1 and the maximum number of rows
+	 *            The height. Must be between 1 and the maximum number of rows and
+	 *            stay inside the inventory
 	 * @param item
 	 *            The item
 	 */
@@ -141,4 +142,28 @@ public interface Inventory {
 	 *         exist, null is returned
 	 */
 	public Object get(String key);
+
+	/**
+	 * Transform a single position to two location
+	 * 
+	 * @param pos
+	 *            The position
+	 * @return an array of two integer: The row and the column
+	 */
+	public default int[] posToLoc(int pos) {
+		return new int[] { (pos / 9) + 1, (pos % 9) + 1 };
+	}
+
+	/**
+	 * Transform two location to a single position
+	 * 
+	 * @param row
+	 *            The row
+	 * @param col
+	 *            The col
+	 * @return The position
+	 */
+	public default int locToPos(int row, int col) {
+		return (row - 1) * 9 + (col - 1);
+	}
 }
