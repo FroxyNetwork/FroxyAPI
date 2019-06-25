@@ -44,6 +44,11 @@ public interface Inventory {
 	public InventoryProvider getInventoryProvider();
 
 	/**
+	 * @return The number of rows
+	 */
+	public int getRows();
+
+	/**
 	 * Set an item at specific pos.<br />
 	 * 
 	 * @param col
@@ -56,8 +61,8 @@ public interface Inventory {
 	public default void set(int col, int row, ClickableItem item) {
 		if (col < 1 || col > 9)
 			throw new IllegalArgumentException("col must be between 1 and 9");
-		if (row < 1 || row > 6)
-			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows");
+		if (row < 1 || row > getRows())
+			throw new IllegalArgumentException("row must be between 1 and " + getRows());
 		set(locToPos(row, col), item);
 	}
 
@@ -102,8 +107,8 @@ public interface Inventory {
 		// 10 - col because width starts with 1 and not 0
 		if (width < 1 || width > 10 - col)
 			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col));
-		if (height < 1 || height > 7 - col)
-			throw new IllegalArgumentException("The height must be between 1 and " + (7 - col));
+		if (height < 1 || height > getRows() + 1 - col)
+			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - col));
 		rectangle(locToPos(row, col), width, height, item);
 	}
 
