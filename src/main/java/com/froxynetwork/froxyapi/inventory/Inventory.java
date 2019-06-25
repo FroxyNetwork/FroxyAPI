@@ -129,6 +129,49 @@ public interface Inventory {
 	public void rectangle(int pos, int width, int height, ClickableItem item);
 
 	/**
+	 * Create a rectangle of items and fill the rectangle
+	 * 
+	 * @param row
+	 *            The row. Must be between 1 and the maximum number of rows
+	 * @param col
+	 *            The col. Must be between 1 and 9
+	 * @param width
+	 *            The width. Must be between 1 and 9
+	 * @param height
+	 *            The height. Must be between 1 and the maximum number of rows
+	 * @param item
+	 *            The item
+	 */
+	public default void fillRectangle(int row, int col, int width, int height, ClickableItem item) {
+		if (col < 1 || col > 9)
+			throw new IllegalArgumentException("col must be between 1 and 9");
+		if (row < 1 || row > 6)
+			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows");
+		// 10 - col because width starts with 1 and not 0
+		if (width < 1 || width > 10 - col)
+			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col));
+		if (height < 1 || height > getRows() + 1 - col)
+			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - col));
+		fillRectangle(locToPos(row, col), width, height, item);
+	}
+
+	/**
+	 * Create a rectangle of items and fill the rectangle
+	 * 
+	 * @param pos
+	 *            The position of the item. Must be between 0 and the maximum number
+	 *            of case (9 * number of rows - 1)
+	 * @param width
+	 *            The width. Must be between 1 and 9 and stay inside the inventory
+	 * @param height
+	 *            The height. Must be between 1 and the maximum number of rows and
+	 *            stay inside the inventory
+	 * @param item
+	 *            The item
+	 */
+	public void fillRectangle(int pos, int width, int height, ClickableItem item);
+
+	/**
 	 * Save a variable in the Inventory. If the key already exists, the old value is
 	 * overrode.
 	 * 
