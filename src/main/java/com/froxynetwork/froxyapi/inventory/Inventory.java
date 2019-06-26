@@ -44,6 +44,11 @@ public interface Inventory {
 	public InventoryProvider getInventoryProvider();
 
 	/**
+	 * @return The number of rows
+	 */
+	public int getRows();
+
+	/**
 	 * Set an item at specific pos.<br />
 	 * 
 	 * @param col
@@ -56,9 +61,9 @@ public interface Inventory {
 	public default void set(int col, int row, ClickableItem item) {
 		if (col < 1 || col > 9)
 			throw new IllegalArgumentException("col must be between 1 and 9");
-		if (row < 1 || row > 6)
-			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows");
-		set((row - 1) * 9 + (col - 1), item);
+		if (row < 1 || row > getRows())
+			throw new IllegalArgumentException("row must be between 1 and " + getRows());
+		set(locToPos(row, col), item);
 	}
 
 	/**
@@ -102,9 +107,9 @@ public interface Inventory {
 		// 10 - col because width starts with 1 and not 0
 		if (width < 1 || width > 10 - col)
 			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col));
-		if (height < 1 || height > 7 - col)
-			throw new IllegalArgumentException("The height must be between 1 and " + (7 - col));
-		rectangle((row - 1) * 9 + (col - 1), width, height, item);
+		if (height < 1 || height > getRows() + 1 - col)
+			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - col));
+		rectangle(locToPos(row, col), width, height, item);
 	}
 
 	/**
@@ -114,13 +119,58 @@ public interface Inventory {
 	 *            The position of the item. Must be between 0 and the maximum number
 	 *            of case (9 * number of rows - 1)
 	 * @param width
+	 *            The width. Must be between 1 and 9 and stay inside the inventory
+	 * @param height
+	 *            The height. Must be between 1 and the maximum number of rows and
+	 *            stay inside the inventory
+	 * @param item
+	 *            The item
+	 */
+	public void rectangle(int pos, int width, int height, ClickableItem item);
+
+	/**
+	 * Create a rectangle of items and fill the rectangle
+	 * 
+	 * @param row
+	 *            The row. Must be between 1 and the maximum number of rows
+	 * @param col
+	 *            The col. Must be between 1 and 9
+	 * @param width
 	 *            The width. Must be between 1 and 9
 	 * @param height
 	 *            The height. Must be between 1 and the maximum number of rows
 	 * @param item
 	 *            The item
 	 */
-	public void rectangle(int pos, int width, int height, ClickableItem item);
+	public default void fillRectangle(int row, int col, int width, int height, ClickableItem item) {
+		if (col < 1 || col > 9)
+			throw new IllegalArgumentException("col must be between 1 and 9, but is " + col);
+		if (row < 1 || row > 6)
+			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows, but is " + row);
+		// 10 - col because width starts with 1 and not 0
+		if (width < 1 || width > 10 - col)
+			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col) + ", but is " + width);
+		if (height < 1 || height > getRows() + 1 - col)
+			throw new IllegalArgumentException(
+					"The height must be between 1 and " + (getRows() + 1 - col) + ", but is " + height);
+		fillRectangle(locToPos(row, col), width, height, item);
+	}
+
+	/**
+	 * Create a rectangle of items and fill the rectangle
+	 * 
+	 * @param pos
+	 *            The position of the item. Must be between 0 and the maximum number
+	 *            of case (9 * number of rows - 1)
+	 * @param width
+	 *            The width. Must be between 1 and 9 and stay inside the inventory
+	 * @param height
+	 *            The height. Must be between 1 and the maximum number of rows and
+	 *            stay inside the inventory
+	 * @param item
+	 *            The item
+	 */
+	public void fillRectangle(int pos, int width, int height, ClickableItem item);
 
 	/**
 	 * Save a variable in the Inventory. If the key already exists, the old value is
@@ -141,4 +191,28 @@ public interface Inventory {
 	 *         exist, null is returned
 	 */
 	public Object get(String key);
+
+	/**
+	 * Transform a single position to two location
+	 * 
+	 * @param pos
+	 *            The position
+	 * @return an array of two integer: The row and the column
+	 */
+	public default int[] posToLoc(int pos) {
+		return new int[] { (pos / 9) + 1, (pos % 9) + 1 };
+	}
+
+	/**
+	 * Transform two location to a single position
+	 * 
+	 * @param row
+	 *            The row
+	 * @param col
+	 *            The col
+	 * @return The position
+	 */
+	public default int locToPos(int row, int col) {
+		return (row - 1) * 9 + (col - 1);
+	}
 }
