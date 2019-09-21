@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
 
 import com.froxynetwork.froxyapi.command.Command;
 import com.froxynetwork.froxyapi.command.CommandManager;
@@ -60,11 +59,6 @@ public interface API {
 	 * @return The version of the actual Core
 	 */
 	public String getVersion();
-
-	/**
-	 * @return The logger
-	 */
-	public Logger getLogger();
 
 	// -----------------------------------------
 	// |                                       |

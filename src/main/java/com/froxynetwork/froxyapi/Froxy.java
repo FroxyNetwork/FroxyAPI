@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
 
 import com.froxynetwork.froxyapi.command.Command;
 import com.froxynetwork.froxyapi.command.CommandManager;
@@ -70,7 +69,6 @@ public final class Froxy {
 		if (Froxy.api != null)
 			throw new UnsupportedOperationException("Cannot redefine singleton API");
 		Froxy.api = api;
-		api.getLogger().info("");
 	}
 
 	/**
@@ -92,13 +90,6 @@ public final class Froxy {
 	 */
 	public static String getVersion() {
 		return api.getVersion();
-	}
-
-	/**
-	 * @return The logger
-	 */
-	public static Logger getLogger() {
-		return api.getLogger();
 	}
 
 	// -----------------------------------------
