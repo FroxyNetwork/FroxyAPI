@@ -96,13 +96,13 @@ public interface Inventory {
 	public default void rectangle(int row, int col, int width, int height, ClickableItem item) {
 		if (col < 1 || col > 9)
 			throw new IllegalArgumentException("col must be between 1 and 9");
-		if (row < 1 || row > 6)
-			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows");
+		if (row < 1 || row > getRows())
+			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows, but is " + row);
 		// 10 - col because width starts with 1 and not 0
 		if (width < 1 || width > 10 - col)
-			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col));
-		if (height < 1 || height > getRows() + 1 - col)
-			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - col));
+			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col) + ", but is " + width);
+		if (height < 1 || height > getRows() + 1 - row)
+			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - row));
 		rectangle(locToPos(row, col), width, height, item);
 	}
 
@@ -139,7 +139,7 @@ public interface Inventory {
 	public default void fillRectangle(int row, int col, int width, int height, ClickableItem item) {
 		if (col < 1 || col > 9)
 			throw new IllegalArgumentException("col must be between 1 and 9, but is " + col);
-		if (row < 1 || row > 6)
+		if (row < 1 || row > getRows())
 			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows, but is " + row);
 		// 10 - col because width starts with 1 and not 0
 		if (width < 1 || width > 10 - col)
