@@ -1,6 +1,9 @@
-package com.froxynetwork.froxyapi.language;
+package com.froxynetwork.froxyapi.events;
 
-import com.froxynetwork.froxyapi.Froxy;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+import com.froxynetwork.froxyapi.player.Player;
 
 import lombok.Getter;
 
@@ -25,26 +28,19 @@ import lombok.Getter;
  * @author 0ddlyoko
  */
 /**
- * List of all languages managed by the app.<br />
- * Same as <a href=
- * "https://github.com/FroxyNetwork/FroxyGame/blob/master/src/main/java/com/froxynetwork/froxygame/languages/LanguageManager.java">this</a>
- * enum.
+ * Called when a player joins a server and he is loaded
  */
-public enum Languages {
-	FRENCH("fr_FR"),
-	ENGLISH("en_US");
-
+public class PlayerLoadEvent extends Event {
+	private static final HandlerList handlers = new HandlerList();
 	@Getter
-	private String lang;
+	private Player player;
 
-	private Languages(String lang) {
-		this.lang = lang;
+	public PlayerLoadEvent(Player player) {
+		this.player = player;
 	}
 
-	public static Languages fromLang(String lang) {
-		for (Languages l : values())
-			if (l.lang.equalsIgnoreCase(lang) || l.name().equalsIgnoreCase(lang))
-				return l;
-		return Froxy.getDefaultLanguage();
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
 	}
 }

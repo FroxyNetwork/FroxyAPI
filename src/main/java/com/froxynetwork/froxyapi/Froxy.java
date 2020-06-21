@@ -1,11 +1,12 @@
 package com.froxynetwork.froxyapi;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
 
 import com.froxynetwork.froxyapi.command.Command;
 import com.froxynetwork.froxyapi.command.CommandManager;
@@ -14,30 +15,26 @@ import com.froxynetwork.froxyapi.inventory.InventoryManager;
 import com.froxynetwork.froxyapi.inventory.InventoryProvider;
 import com.froxynetwork.froxyapi.language.LanguageManager;
 import com.froxynetwork.froxyapi.language.Languages;
+import com.froxynetwork.froxyapi.player.PlayerManager;
 
 /**
- * MIT License
- *
- * Copyright (c) 2019 FroxyNetwork
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * FroxyAPI
  * 
+ * Copyright (C) 2019 FroxyNetwork
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  * @author 0ddlyoko
  */
 /**
@@ -70,7 +67,14 @@ public final class Froxy {
 		if (Froxy.api != null)
 			throw new UnsupportedOperationException("Cannot redefine singleton API");
 		Froxy.api = api;
-		api.getLogger().info("");
+	}
+
+	/**
+	 * Register specific plugin as the game
+	 */
+	public static void register(JavaPlugin plugin) {
+		// TODO change JavaPlugin (because it's useless)
+		api.register(plugin);
 	}
 
 	/**
@@ -86,6 +90,34 @@ public final class Froxy {
 	public static JavaPlugin getGamePlugin() {
 		return api.getGamePlugin();
 	}
+	
+	/**
+	 * @return The id of this server
+	 */
+	public static String getId() {
+		return api.getId();
+	}
+	
+	/**
+	 * @return The name of this server
+	 */
+	public static String getName() {
+		return api.getName();
+	}
+	
+	/**
+	 * @return The type of this server
+	 */
+	public static String getType() {
+		return api.getType();
+	}
+
+	/**
+	 * @return The creation time of this server
+	 */
+	public static Date getCreationTime() {
+		return api.getCreationTime();
+	}
 
 	/**
 	 * @return The version of the actual Core
@@ -94,17 +126,10 @@ public final class Froxy {
 		return api.getVersion();
 	}
 
-	/**
-	 * @return The logger
-	 */
-	public static Logger getLogger() {
-		return api.getLogger();
-	}
-
 	// -----------------------------------------
-	// |                                       |
-	// |           Language Manager            |
-	// |                                       |
+	// |
+	// | 			Language Manager
+	// |
 	// -----------------------------------------
 
 	/**
@@ -115,7 +140,7 @@ public final class Froxy {
 	}
 
 	/**
-	 * @return The default language
+	 * @return The static language
 	 */
 	public static Languages getDefaultLanguage() {
 		return api.getDefaultLanguage();
@@ -134,24 +159,27 @@ public final class Froxy {
 	}
 
 	/**
-	 * Get the default translate of specific message id.<br />
+	 * Get the static translate of specific message id.<br />
 	 * Same as <code>$(id, getDefaultLanguage(), params)</code>
 	 * 
-	 * @param id The id of the message
+	 * @param id     The id of the message
 	 * @param params The parameters
-	 * @return The message translated by default language, or the id if message id doesn't exist
+	 * @return The message translated by static language, or the id if message id
+	 *         doesn't exist
 	 */
 	public static String $(String id, String... params) {
 		return api.$(id, params);
 	}
 
 	/**
-	 * Get the translation of specific message id with specific language. If message id not found, return the translation with DEFAULT language
+	 * Get the translation of specific message id with specific language. If message
+	 * id not found, return the translation with DEFAULT language
 	 * 
-	 * @param id The id of the message
-	 * @param lang The specific language
+	 * @param id     The id of the message
+	 * @param lang   The specific language
 	 * @param params The parameters
-	 * @return The message translated by specific language, or the message translated by default language, or the id if message id doesn't exist
+	 * @return The message translated by specific language, or the message
+	 *         translated by static language, or the id if message id doesn't exist
 	 */
 	public static String $(String id, Languages lang, String... params) {
 		return api.$(id, lang, params);
@@ -160,22 +188,22 @@ public final class Froxy {
 	/**
 	 * Get the translate of specific id with specific language
 	 * 
-	 * @param id The id of the message
-	 * @param lang The specific language
+	 * @param id     The id of the message
+	 * @param lang   The specific language
 	 * @param params The parameters
-	 * @return The message translated by specific language, or the id if message id doesn't exist
+	 * @return The message translated by specific language, or the id if message id
+	 *         doesn't exist
 	 */
 	public static String $_(String id, Languages lang, String... params) {
 		return api.$_(id, lang, params);
 	}
-	
 
 	// -----------------------------------------
-	// |                                       |
-	// |            Command Manager            |
-	// |                                       |
+	// |
+	// | 			Command Manager
+	// |
 	// -----------------------------------------
-	
+
 	/**
 	 * @return The CommandManager
 	 */
@@ -186,8 +214,7 @@ public final class Froxy {
 	/**
 	 * Register a command
 	 * 
-	 * @param cmd
-	 *            The command
+	 * @param cmd The command
 	 */
 	public static void registerCommand(Command cmd) {
 		api.registerCommand(cmd);
@@ -196,8 +223,7 @@ public final class Froxy {
 	/**
 	 * Unregister a command
 	 * 
-	 * @param cmd
-	 *            The command
+	 * @param cmd The command
 	 */
 	public static void unregisterCommand(Command cmd) {
 		api.unregisterCommand(cmd);
@@ -211,9 +237,9 @@ public final class Froxy {
 	}
 
 	// -----------------------------------------
-	// |                                       |
-	// |          Inventory Manager            |
-	// |                                       |
+	// |
+	// | 			Inventory Manager
+	// |
 	// -----------------------------------------
 
 	/**
@@ -226,10 +252,8 @@ public final class Froxy {
 	/**
 	 * Create an Inventory and open it
 	 * 
-	 * @param provider
-	 *            The provider
-	 * @param player
-	 *            The player
+	 * @param provider The provider
+	 * @param player   The player
 	 * @return An inventory
 	 */
 	public static Inventory openInventory(InventoryProvider provider, Player player) {
@@ -237,8 +261,7 @@ public final class Froxy {
 	}
 
 	/**
-	 * @param p
-	 *            Player to check
+	 * @param p Player to check
 	 * 
 	 * @return true if specific Player has an opened inventory
 	 */
@@ -247,8 +270,7 @@ public final class Froxy {
 	}
 
 	/**
-	 * @param p
-	 *            Specific player
+	 * @param p Specific player
 	 * @return The inventory of specific Player. Null if not opened
 	 */
 	public static Inventory getInventory(Player p) {
@@ -259,10 +281,77 @@ public final class Froxy {
 	 * Close player's inventory.<br />
 	 * Same as <code>p.closeInventory();</code>
 	 * 
-	 * @param p
-	 *            The player
+	 * @param p The player
 	 */
 	public static void closeInventory(Player p) {
 		api.closeInventory(p);
+	}
+
+	// -----------------------------------------
+	// |
+	// | 			Player Manager
+	// |
+	// -----------------------------------------
+
+	/**
+	 * @return The PlayerManager
+	 */
+	public static PlayerManager getPlayerManager() {
+		return api.getPlayerManager();
+	}
+
+	/**
+	 * @param name The name of the player
+	 * @return The player or null if not found
+	 */
+	public static com.froxynetwork.froxyapi.player.Player getPlayer(String name) {
+		return api.getPlayer(name);
+	}
+
+	/**
+	 * @param uuid The uuid of the player
+	 * @return The player or null if not found
+	 */
+	public static com.froxynetwork.froxyapi.player.Player getPlayer(UUID uuid) {
+		return api.getPlayer(uuid);
+	}
+
+	/**
+	 * @return An immutable list containing all players
+	 */
+	public static List<? extends com.froxynetwork.froxyapi.player.Player> getPlayers() {
+		return api.getPlayers();
+	}
+
+	/**
+	 * Edit kill time. Set to -1 to keep last kill or 0 to disable it
+	 * 
+	 * @param time The new time in seconds
+	 */
+	public static void setKillTime(int time) {
+		api.setKillTime(time);
+	}
+
+	/**
+	 * @return The current kill time
+	 */
+	public static int getKillTime() {
+		return api.getKillTime();
+	}
+
+	/**
+	 * Edit assist time. Set to -1 to keep all assists or 0 to disable it
+	 * 
+	 * @param time The new time in seconds
+	 */
+	public static void setAssistTime(int time) {
+		api.setAssistTime(time);
+	}
+
+	/**
+	 * @return The current assist time
+	 */
+	public static int getAssistTime() {
+		return api.getAssistTime();
 	}
 }
