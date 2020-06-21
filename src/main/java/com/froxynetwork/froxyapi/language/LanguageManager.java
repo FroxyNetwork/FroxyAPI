@@ -4,6 +4,7 @@ import java.io.File;
 
 /**
  * FroxyAPI
+ * 
  * Copyright (C) 2019 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify

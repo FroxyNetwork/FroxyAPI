@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 /**
  * FroxyAPI
+ * 
  * Copyright (C) 2019 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -53,12 +54,9 @@ public interface Command {
 	/**
 	 * Execute command
 	 * 
-	 * @param cmd
-	 *            The command
-	 * @param p
-	 *            The player
-	 * @param args
-	 *            The args
+	 * @param cmd  The command
+	 * @param p    The player
+	 * @param args The args
 	 * 
 	 * @return true if no errors
 	 */
@@ -67,8 +65,7 @@ public interface Command {
 	/**
 	 * Method to call when a player doesn't have permission to execute a command
 	 * 
-	 * @param sender
-	 *            The player
+	 * @param sender The player
 	 */
 	public default void noPermission(Player sender) {
 		// TODO Change that
@@ -79,10 +76,8 @@ public interface Command {
 	/**
 	 * Method to call when there is a syntax error
 	 * 
-	 * @param player
-	 *            The player
-	 * @param syntax
-	 *            The correct syntax
+	 * @param player The player
+	 * @param syntax The correct syntax
 	 */
 	public default void syntaxError(Player sender, String syntax) {
 		String msg = $("command.syntaxerror", syntax);

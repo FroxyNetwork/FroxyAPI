@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 /**
  * FroxyAPI
+ * 
  * Copyright (C) 2019 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -45,12 +46,9 @@ public interface Inventory {
 	/**
 	 * Set an item at specific pos.<br />
 	 * 
-	 * @param col
-	 *            The col. Must be between 1 and 9
-	 * @param row
-	 *            The row. Must be between 1 and the maximum number of rows
-	 * @param item
-	 *            The item
+	 * @param col  The col. Must be between 1 and 9
+	 * @param row  The row. Must be between 1 and the maximum number of rows
+	 * @param item The item
 	 */
 	public default void set(int col, int row, ClickableItem item) {
 		if (col < 1 || col > 9)
@@ -63,35 +61,27 @@ public interface Inventory {
 	/**
 	 * Set an item at specific pos.<br />
 	 * 
-	 * @param pos
-	 *            The position of the item. Must be between 0 and the maximum number
-	 *            of case (9 * number of rows - 1)
-	 * @param item
-	 *            The item
+	 * @param pos  The position of the item. Must be between 0 and the maximum
+	 *             number of case (9 * number of rows - 1)
+	 * @param item The item
 	 */
 	public void set(int pos, ClickableItem item);
 
 	/**
 	 * Fill the inventory with specific item
 	 * 
-	 * @param item
-	 *            The item
+	 * @param item The item
 	 */
 	public void fill(ClickableItem item);
 
 	/**
 	 * Create a rectangle of items
 	 * 
-	 * @param row
-	 *            The row. Must be between 1 and the maximum number of rows
-	 * @param col
-	 *            The col. Must be between 1 and 9
-	 * @param width
-	 *            The width. Must be between 1 and 9
-	 * @param height
-	 *            The height. Must be between 1 and the maximum number of rows
-	 * @param item
-	 *            The item
+	 * @param row    The row. Must be between 1 and the maximum number of rows
+	 * @param col    The col. Must be between 1 and 9
+	 * @param width  The width. Must be between 1 and 9
+	 * @param height The height. Must be between 1 and the maximum number of rows
+	 * @param item   The item
 	 */
 	public default void rectangle(int row, int col, int width, int height, ClickableItem item) {
 		if (col < 1 || col > 9)
@@ -109,32 +99,24 @@ public interface Inventory {
 	/**
 	 * Create a rectangle of items
 	 * 
-	 * @param pos
-	 *            The position of the item. Must be between 0 and the maximum number
-	 *            of case (9 * number of rows - 1)
-	 * @param width
-	 *            The width. Must be between 1 and 9 and stay inside the inventory
-	 * @param height
-	 *            The height. Must be between 1 and the maximum number of rows and
-	 *            stay inside the inventory
-	 * @param item
-	 *            The item
+	 * @param pos    The position of the item. Must be between 0 and the maximum
+	 *               number of case (9 * number of rows - 1)
+	 * @param width  The width. Must be between 1 and 9 and stay inside the
+	 *               inventory
+	 * @param height The height. Must be between 1 and the maximum number of rows
+	 *               and stay inside the inventory
+	 * @param item   The item
 	 */
 	public void rectangle(int pos, int width, int height, ClickableItem item);
 
 	/**
 	 * Create a rectangle of items and fill the rectangle
 	 * 
-	 * @param row
-	 *            The row. Must be between 1 and the maximum number of rows
-	 * @param col
-	 *            The col. Must be between 1 and 9
-	 * @param width
-	 *            The width. Must be between 1 and 9
-	 * @param height
-	 *            The height. Must be between 1 and the maximum number of rows
-	 * @param item
-	 *            The item
+	 * @param row    The row. Must be between 1 and the maximum number of rows
+	 * @param col    The col. Must be between 1 and 9
+	 * @param width  The width. Must be between 1 and 9
+	 * @param height The height. Must be between 1 and the maximum number of rows
+	 * @param item   The item
 	 */
 	public default void fillRectangle(int row, int col, int width, int height, ClickableItem item) {
 		if (col < 1 || col > 9)
@@ -153,16 +135,13 @@ public interface Inventory {
 	/**
 	 * Create a rectangle of items and fill the rectangle
 	 * 
-	 * @param pos
-	 *            The position of the item. Must be between 0 and the maximum number
-	 *            of case (9 * number of rows - 1)
-	 * @param width
-	 *            The width. Must be between 1 and 9 and stay inside the inventory
-	 * @param height
-	 *            The height. Must be between 1 and the maximum number of rows and
-	 *            stay inside the inventory
-	 * @param item
-	 *            The item
+	 * @param pos    The position of the item. Must be between 0 and the maximum
+	 *               number of case (9 * number of rows - 1)
+	 * @param width  The width. Must be between 1 and 9 and stay inside the
+	 *               inventory
+	 * @param height The height. Must be between 1 and the maximum number of rows
+	 *               and stay inside the inventory
+	 * @param item   The item
 	 */
 	public void fillRectangle(int pos, int width, int height, ClickableItem item);
 
@@ -170,16 +149,13 @@ public interface Inventory {
 	 * Save a variable in the Inventory. If the key already exists, the old value is
 	 * overrode.
 	 * 
-	 * @param key
-	 *            The key
-	 * @param value
-	 *            The value
+	 * @param key   The key
+	 * @param value The value
 	 */
 	public void save(String key, Object value);
 
 	/**
-	 * @param key
-	 *            The key
+	 * @param key The key
 	 * 
 	 * @return Specific variable saved before in the Inventory. If key doesn't
 	 *         exist, null is returned
@@ -189,8 +165,7 @@ public interface Inventory {
 	/**
 	 * Transform a single position to two location
 	 * 
-	 * @param pos
-	 *            The position
+	 * @param pos The position
 	 * @return an array of two integer: The row and the column
 	 */
 	public default int[] posToLoc(int pos) {
@@ -200,10 +175,8 @@ public interface Inventory {
 	/**
 	 * Transform two location to a single position
 	 * 
-	 * @param row
-	 *            The row
-	 * @param col
-	 *            The col
+	 * @param row The row
+	 * @param col The col
 	 * @return The position
 	 */
 	public default int locToPos(int row, int col) {
