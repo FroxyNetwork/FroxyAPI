@@ -90,21 +90,21 @@ public final class Froxy {
 	public static JavaPlugin getGamePlugin() {
 		return api.getGamePlugin();
 	}
-	
+
 	/**
 	 * @return The id of this server
 	 */
 	public static String getId() {
 		return api.getId();
 	}
-	
+
 	/**
 	 * @return The name of this server
 	 */
 	public static String getName() {
 		return api.getName();
 	}
-	
+
 	/**
 	 * @return The type of this server
 	 */
@@ -128,7 +128,7 @@ public final class Froxy {
 
 	// -----------------------------------------
 	// |
-	// | 			Language Manager
+	// | Language Manager
 	// |
 	// -----------------------------------------
 
@@ -200,7 +200,7 @@ public final class Froxy {
 
 	// -----------------------------------------
 	// |
-	// | 			Command Manager
+	// | Command Manager
 	// |
 	// -----------------------------------------
 
@@ -238,7 +238,7 @@ public final class Froxy {
 
 	// -----------------------------------------
 	// |
-	// | 			Inventory Manager
+	// | Inventory Manager
 	// |
 	// -----------------------------------------
 
@@ -289,7 +289,7 @@ public final class Froxy {
 
 	// -----------------------------------------
 	// |
-	// | 			Player Manager
+	// | Player Manager
 	// |
 	// -----------------------------------------
 
