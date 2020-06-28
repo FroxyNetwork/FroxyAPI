@@ -55,7 +55,7 @@ public interface Inventory {
 			throw new IllegalArgumentException("col must be between 1 and 9");
 		if (row < 1 || row > getRows())
 			throw new IllegalArgumentException("row must be between 1 and " + getRows());
-		set(locToPos(row, col), item);
+		set(locToPos(col, row), item);
 	}
 
 	/**
@@ -83,18 +83,7 @@ public interface Inventory {
 	 * @param height The height. Must be between 1 and the maximum number of rows
 	 * @param item   The item
 	 */
-	public default void rectangle(int row, int col, int width, int height, ClickableItem item) {
-		if (col < 1 || col > 9)
-			throw new IllegalArgumentException("col must be between 1 and 9");
-		if (row < 1 || row > getRows())
-			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows, but is " + row);
-		// 10 - col because width starts with 1 and not 0
-		if (width < 1 || width > 10 - col)
-			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col) + ", but is " + width);
-		if (height < 1 || height > getRows() + 1 - row)
-			throw new IllegalArgumentException("The height must be between 1 and " + (getRows() + 1 - row));
-		rectangle(locToPos(row, col), width, height, item);
-	}
+	public void rectangle(int col, int row, int width, int height, ClickableItem item);
 
 	/**
 	 * Create a rectangle of items
@@ -118,19 +107,7 @@ public interface Inventory {
 	 * @param height The height. Must be between 1 and the maximum number of rows
 	 * @param item   The item
 	 */
-	public default void fillRectangle(int row, int col, int width, int height, ClickableItem item) {
-		if (col < 1 || col > 9)
-			throw new IllegalArgumentException("col must be between 1 and 9, but is " + col);
-		if (row < 1 || row > getRows())
-			throw new IllegalArgumentException("row must be between 1 and the maximum number of rows, but is " + row);
-		// 10 - col because width starts with 1 and not 0
-		if (width < 1 || width > 10 - col)
-			throw new IllegalArgumentException("The width must be between 1 and " + (10 - col) + ", but is " + width);
-		if (height < 1 || height > getRows() + 1 - col)
-			throw new IllegalArgumentException(
-					"The height must be between 1 and " + (getRows() + 1 - col) + ", but is " + height);
-		fillRectangle(locToPos(row, col), width, height, item);
-	}
+	public void fillRectangle(int col, int row, int width, int height, ClickableItem item);
 
 	/**
 	 * Create a rectangle of items and fill the rectangle
@@ -179,7 +156,7 @@ public interface Inventory {
 	 * @param col The col
 	 * @return The position
 	 */
-	public default int locToPos(int row, int col) {
+	public default int locToPos(int col, int row) {
 		return (row - 1) * 9 + (col - 1);
 	}
 }
