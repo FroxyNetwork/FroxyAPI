@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,31 +47,35 @@ public interface LanguageManager {
 	 * Get the default translate of specific message id.<br />
 	 * Same as <code>$(id, getDefaultLanguage(), params)</code>
 	 * 
-	 * @param id The id of the message
+	 * @param id     The id of the message
 	 * @param params The parameters
-	 * @return The message translated by default language, or the id if message id doesn't exist
+	 * @return The message translated by default language, or the id if message id
+	 *         doesn't exist
 	 */
 	public default String $(String id, String... params) {
 		return $(id, getDefaultLanguage(), params);
 	}
 
 	/**
-	 * Get the translation of specific message id with specific language. If message id not found, return the translation with DEFAULT language
+	 * Get the translation of specific message id with specific language. If message
+	 * id not found, return the translation with DEFAULT language
 	 * 
-	 * @param id The id of the message
-	 * @param lang The specific language
+	 * @param id     The id of the message
+	 * @param lang   The specific language
 	 * @param params The parameters
-	 * @return The message translated by specific language, or the message translated by default language, or the id if message id doesn't exist
+	 * @return The message translated by specific language, or the message
+	 *         translated by default language, or the id if message id doesn't exist
 	 */
 	public String $(String id, Languages lang, String... params);
 
 	/**
 	 * Get the translate of specific id with specific language
 	 * 
-	 * @param id The id of the message
-	 * @param lang The specific language
+	 * @param id     The id of the message
+	 * @param lang   The specific language
 	 * @param params The parameters
-	 * @return The message translated by specific language, or the id if message id doesn't exist
+	 * @return The message translated by specific language, or the id if message id
+	 *         doesn't exist
 	 */
 	public String $_(String id, Languages lang, String... params);
 }

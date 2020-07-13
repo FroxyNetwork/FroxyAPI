@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,16 +31,14 @@ public interface CommandManager {
 	/**
 	 * Register a command
 	 * 
-	 * @param cmd
-	 *            The command
+	 * @param cmd The command
 	 */
 	public void registerCommand(Command cmd);
 
 	/**
 	 * Unregister a command
 	 * 
-	 * @param cmd
-	 *            The command
+	 * @param cmd The command
 	 */
 	public void unregisterCommand(Command cmd);
 

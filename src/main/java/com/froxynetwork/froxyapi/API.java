@@ -21,7 +21,7 @@ import com.froxynetwork.froxyapi.player.PlayerManager;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,17 +57,17 @@ public interface API {
 	 * @return The JavaPlugin implementation of the Game plugin
 	 */
 	public JavaPlugin getGamePlugin();
-	
+
 	/**
 	 * @return The id of this server
 	 */
 	public String getId();
-	
+
 	/**
 	 * @return The name of this server
 	 */
 	public String getName();
-	
+
 	/**
 	 * @return The type of this server
 	 */
@@ -77,7 +77,7 @@ public interface API {
 	 * @return The creation time of this server
 	 */
 	public Date getCreationTime();
-	
+
 	/**
 	 * @return The version of the actual Core
 	 */
@@ -85,7 +85,7 @@ public interface API {
 
 	// -----------------------------------------
 	//
-	// 				Language Manager
+	// Language Manager
 	//
 	// -----------------------------------------
 
@@ -154,9 +154,9 @@ public interface API {
 	}
 
 	// -----------------------------------------
-	// | 
-	// | 			Command Manager
-	// | 
+	// |
+	// | Command Manager
+	// |
 	// -----------------------------------------
 
 	/**
@@ -191,7 +191,7 @@ public interface API {
 
 	// -----------------------------------------
 	// |
-	// | 			Inventory Manager
+	// | Inventory Manager
 	// |
 	// -----------------------------------------
 
@@ -240,7 +240,7 @@ public interface API {
 
 	// -----------------------------------------
 	// |
-	// | 			Player Manager
+	// | Player Manager
 	// |
 	// -----------------------------------------
 

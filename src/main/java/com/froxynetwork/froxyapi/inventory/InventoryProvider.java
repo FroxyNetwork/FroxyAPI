@@ -3,7 +3,7 @@ package com.froxynetwork.froxyapi.inventory;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,15 +31,13 @@ public interface InventoryProvider {
 	 * Return the title of the inventory.<br />
 	 * This method is called only when an inventory opens.
 	 * 
-	 * @param inv
-	 *            The inventory
+	 * @param inv The inventory
 	 * @return The title of the inventory
 	 */
 	public String title(Inventory inv);
 
 	/**
-	 * @param inv
-	 *            The inventory
+	 * @param inv The inventory
 	 * 
 	 * @return The number of rows. Must be between 1 and 6
 	 */
@@ -48,16 +46,14 @@ public interface InventoryProvider {
 	/**
 	 * Method called to initialize an Inventory
 	 * 
-	 * @param inv
-	 *            The specific inventory
+	 * @param inv The specific inventory
 	 */
 	public void init(Inventory inv);
 
 	/**
 	 * Method called each ticks to update an Inventory
 	 * 
-	 * @param inv
-	 *            The Inventory
+	 * @param inv The Inventory
 	 */
 	public void update(Inventory inv);
 }

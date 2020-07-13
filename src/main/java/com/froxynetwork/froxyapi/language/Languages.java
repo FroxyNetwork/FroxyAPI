@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,11 +27,11 @@ import lombok.Getter;
 /**
  * List of all languages managed by the app.<br />
  * Same as <a href=
- * "https://github.com/FroxyNetwork/FroxyGame/blob/master/src/main/java/com/froxynetwork/froxygame/languages/LanguageManager.java">this</a>
+ * "https://github.com/FroxyProject/FroxyGame/blob/master/src/main/java/com/froxynetwork/froxygame/languages/Languages.java">this</a>
  * enum.
  */
 public enum Languages {
-	FRENCH("fr_FR"),
+	FRENCH("fr_FR"), //
 	ENGLISH("en_US");
 
 	@Getter

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 /**
  * FroxyAPI
  * 
- * Copyright (C) 2019 FroxyNetwork
+ * Copyright (C) 2020 FroxyNetwork
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,25 +31,21 @@ public interface InventoryManager {
 	/**
 	 * Create an Inventory and open it
 	 * 
-	 * @param provider
-	 *            The provider
-	 * @param player
-	 *            The player
+	 * @param provider The provider
+	 * @param player   The player
 	 * @return An inventory
 	 */
 	public Inventory openInventory(InventoryProvider provider, Player player);
 
 	/**
-	 * @param p
-	 *            Player to check
+	 * @param p Player to check
 	 * 
 	 * @return true if specific Player has an opened inventory
 	 */
 	public boolean hasInventoryOpened(Player p);
 
 	/**
-	 * @param p
-	 *            Specific player
+	 * @param p Specific player
 	 * @return The inventory of specific Player. Null if not opened
 	 */
 	public Inventory getInventory(Player p);
@@ -58,8 +54,7 @@ public interface InventoryManager {
 	 * Close player's inventory.<br />
 	 * Same as <code>p.closeInventory();</code>
 	 * 
-	 * @param p
-	 *            The player
+	 * @param p The player
 	 */
 	public default void closeInventory(Player p) {
 		p.closeInventory();
